@@ -67,8 +67,13 @@ int main() {
 
   dvd_logo.position = (Vector2){.x = x, .y = y};
 
+#if defined(PLATFORM_WEB)
   emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
-
+#else
+  while (!WindowShouldClose()) {
+    UpdateDrawFrame();
+  }
+#endif
   UnloadTexture(dvd_logo.texture);
   CloseWindow();
   return (0);
